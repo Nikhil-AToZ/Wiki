@@ -12,11 +12,10 @@
         <div class="row">
             <div class="sidebar col-lg-2 col-md-3 col-sm-3 col-4">
                 <h2>Wiki</h2>
-                <form>
-                    <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
-                </form>
+                {% block form %}
+                {%endblock%}
                 <div>
-                    <a id="Home" href="{% url 'index' %}">Home</a>
+                    <a id="Home" href="{% url 'encyclopedia:index' %}">Home</a>
                 </div>
                 <div id="Create New Page">
                     Create New Page
@@ -27,9 +26,14 @@
                 {% block nav %}
                 {% endblock %}
             </div>
-            <div class="main col-lg-10 col-md-9 col-sm-9 col-8">
+            
+            <div class="main col-lg-10 col-md-9 col-sm-9 col-8">  
                 {% block body %}
                 {% endblock %}
+                <h3 id="header">
+                    {% block header%} 
+                    {%endblock%}
+                </h3>
             </div>
         </div>
 
