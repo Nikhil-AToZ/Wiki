@@ -2,7 +2,6 @@ from django.shortcuts import render
 from markdown import markdown
 from . import util 
 
-
 def html(request,content):
     
     if content is None :
@@ -45,3 +44,7 @@ def search(request):
             "header" : "No matching Page found",
             "H1":"Closet Pages"
         })
+
+
+def Add_page(request):
+    return render(request,"encyclopedia/Add_page.html")
