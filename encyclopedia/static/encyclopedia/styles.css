@@ -20,10 +20,7 @@ textarea {
 }
 
 .main {
-    #header {
-            font-size: larger;
-            font-weight: 800;
-    }
+   
     padding: 10px;
     
 }
@@ -34,14 +31,13 @@ textarea {
     font-size: 15px;
     line-height: 15px;
     padding: 2px;
-
+    
 }
 
 .sidebar {
     background-color: #f0f0f0;
-    
+    min-height: 100vh;
     padding: 20px;
-    
 }
 
 .sidebar h2 {

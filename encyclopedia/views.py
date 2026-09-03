@@ -3,41 +3,45 @@ from markdown import markdown
 from . import util 
 
 
+def html(request,content):
+    
+    if content is None :
+        return r_render(request,"Error loading file","All Pages")
+    html_cont =  markdown(content)
+    return render(request,"encyclopedia/page.html",{
+            "content":html_cont
+        })
 
-
-def r_render(request,header):
+def r_render(request,header,h1):
     return render(request, "encyclopedia/index.html", {
             "entries": util.list_entries(),
-            "header":header
+            "header":header,
+            "H1":h1
         })
 
 def index(request):
-    return r_render(request,"")
+    return r_render(request,"",'All Pages')
 
 
 def page(request,title):
-    print("page",title)
-    with open(f"entries/{title}.md",'r',encoding="utf-8") as f :
-        content = f.read()
-
-    html = markdown(content)
-    return render(request,"encyclopedia/page.html",{
-        "content":html
-    })
+    content = util.get_entry(title)
+    return html(request,content)
 
 def search(request):
     entries = util.list_entries()
     merged = "".join(entries)
+    
     if request.method == "POST" :
-        task = request.POST["q"].upper()
-        
+        task = request.POST["q"].lower()
+    
+        if task in entries :
+            return page(request,task)
         if task not in merged:
-           return r_render(request,"No matching entry found!")
+           return r_render(request,"No matching entry found!",'All other Pages')
         
         entries = [val for val in entries if task in val]
-
-        # print(task*100)
-        # print(entries)
-        # print(entries)
-    return r_render(request,"!Error Internal server Error!!! refector the all pages to most closest pages ")
-    
+        return render(request,"encyclopedia/index.html",{
+            "entries":entries,
+            "header" : "No matching Page found",
+            "H1":"Closet Pages"
+        })

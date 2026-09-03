@@ -4,24 +4,21 @@
     Encyclopedia
 {% endblock %}
 
-{% block form %}
-    <form action="{% url 'encyclopedia:search' %}" method="post">
-         {% csrf_token %}
-         <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
-    </form>
-{%endblock%}
-{%block header%}
-{{header}}
-{%endblock%}
+
 
 {% block body %}
-    <h1>All Pages</h1>
+    <h1>{{H1}}</h1>
 
     <ul>
         {% for entry in entries %}
-        
-            <li><a href="/{{ entry }}">{{ entry }}</a></li>
+            <li><a href="/{{entry}}">{{ entry|capfirst }}</a></li>
         {% endfor %}
     </ul>
+
+    
+   {%block header%}
+   <h3>{{header}}</h3>
+   
+   {%endblock%}
 
 {% endblock %}
