@@ -1,6 +1,8 @@
 body {
+    overflow-x: hidden;
     margin: 0;
     background-color: white;
+    
 }
 
 code {
@@ -19,6 +21,7 @@ textarea {
 
 .main {
     padding: 10px;
+    
 }
 
 .search {
@@ -31,10 +34,16 @@ textarea {
 
 .sidebar {
     background-color: #f0f0f0;
-    height: 100vh;
+    
     padding: 20px;
+    
 }
 
 .sidebar h2 {
     margin-top: 5px;
+}
+
+
+.page{
+    font-family: Arial, Helvetica, sans-serif;
 }

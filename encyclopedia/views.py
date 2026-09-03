@@ -11,7 +11,7 @@ def index(request):
 
 def page(request,title):
     
-    with open(f"entries/{title}.md",'r') as f :
+    with open(f"entries/{title}.md",'r',encoding="utf-8") as f :
         content = f.read()
 
     html = markdown(content)
