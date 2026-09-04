@@ -4,12 +4,16 @@ from . import util
 from django import forms 
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-def html(request,content):
+
+
+
+def html(request,content,title):
     if content is None :
         return r_render(request,"Error loading file","All Pages")
     html_cont =  markdown(content)
     return render(request,"encyclopedia/page.html",{
-            "content":html_cont
+            "content":html_cont,
+            "title":title
         })
 
 def r_render(request,header,h1):
@@ -26,8 +30,9 @@ def index(request):
 
 def page(request,title):
     print(title)
+    Glob_title = title 
     content = util.get_entry(title)
-    return html(request,content)
+    return html(request,content,title)
 
 def search(request):
     
@@ -79,3 +84,16 @@ def Add_page(request):
     return render(request,url ,{
         "form":newform()
      })
+
+
+def edit_page(request,title):
+    if request.method == "POST":
+     print("Make update functioning "*10)
+
+    content = util.get_entry(title)
+    print(request)
+    return render(request,"encyclopedia/edit.html",{
+        "content":content,
+        "title":title
+    })
+
