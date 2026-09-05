@@ -10,12 +10,14 @@
 <form action="{% url 'encyclopedia:edit' title %}"  method="post">
   {% csrf_token %}
   <input type="submit" class="edit" value="Update">
+  
+   <div style="margin: 10px;">
+       {{form.page_content}} 
+   </div>
+  
+
 </form>
 
-<div style="margin: 10px;">
-<textarea name="Content" id=""page_content"" class="form-input" >
-        {{content}}
-</textarea>
-</div>
+
 
 {% endblock %}

@@ -4,7 +4,7 @@ from . import util
 from django import forms 
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from random import choice
 
 
 def html(request,content,title):
@@ -24,7 +24,7 @@ def r_render(request,header,h1):
         })
 
 def index(request):
-
+    
     return r_render(request,"",'All Pages')
 
 
@@ -35,12 +35,11 @@ def page(request,title):
     return html(request,content,title)
 
 def search(request):
-    
     entries = util.list_entries()
     merged = "".join(entries)
     task = request.POST["q"].lower()
     if util.get_entry(task) != None:
-            return page(request,task)
+           return HttpResponseRedirect(reverse("encyclopedia:page",args=[task]))
     if task not in merged:
            return r_render(request,"No matching entry found!",'All other Pages')
         
@@ -87,13 +86,22 @@ def Add_page(request):
 
 
 def edit_page(request,title):
-    if request.method == "POST":
-     print("Make update functioning "*10)
-
     content = util.get_entry(title)
-    print(request)
+    if request.method == "POST":
+       new_content = request.POST["page_content"]
+       util.save_entry(title,new_content)
+       return HttpResponseRedirect(reverse("encyclopedia:page",args=[title]))
+       
+    form = newform()
+    form.fields["page_content"].widget.attrs["class"] = "form-input"
+    form.fields["page_content"].initial = content
     return render(request,"encyclopedia/edit.html",{
         "content":content,
-        "title":title
+        "title":title,
+        "form":form
     })
 
+
+def random_page(request):
+    title = choice(util.list_entries())
+    return HttpResponseRedirect(reverse("encyclopedia:page",args=[title]))

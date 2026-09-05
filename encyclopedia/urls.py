@@ -7,5 +7,6 @@ urlpatterns = [
     path("search",views.search,name="search"),
     path("Add_page",views.Add_page,name="Add"),
     path("edit/<str:title>",views.edit_page,name="edit"),
-    path("<str:title>",views.page)
+    path("Random_page",views.random_page,name="random"),
+    path("<str:title>",views.page,name="page")
 ]
